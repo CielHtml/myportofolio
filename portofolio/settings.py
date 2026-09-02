@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-7f+1t(sltzed*&8ijfz9=0xjs1i=h-atdfhr#crw72v#^#hz2u
 DEBUG = True
 
 # Application definition
-
+ 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
