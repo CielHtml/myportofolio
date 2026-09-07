@@ -162,6 +162,22 @@ h1, .brand {
 .certificate-area{
     padding: 4.5rem 0 5rem;
 }
+
+.section-header{
+    margin-bottom: 3rem;
+}
+
+.section-header hr {
+    border: none;
+    border-top: 1px solid #ffffff;
+    opacity: 0.2;
+    margin-bottom: 2rem;
+}
+
+.section-header h2{
+    text-align: center;
+}
+
 .certificate-grid{
     display: grid;
     grid-template-columns: 0.5fr 0.5fr;
