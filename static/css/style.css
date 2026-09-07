@@ -168,6 +168,19 @@ h1, .brand {
     gap: 1.5rem 3rem;
 }
 
+.certificate-card {
+    border: 0.1875rem solid #732c36;
+    padding: 1.5rem;
+    background-color: #f15757;
+}
+
+.certificate-card .certificate-earned-img img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+
 .avatar {
     position: relative;
     z-index: 1;
@@ -176,7 +189,7 @@ h1, .brand {
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: var(--radius);
-    border: 3px solid #732c36;
+    border: 0.1875rem solid #732c36;
 }
 
 .site-footer {
