@@ -159,6 +159,15 @@ h1, .brand {
     z-index: 0;
 }
 
+.certificate-area{
+    padding: 4.5rem 0 5rem;
+}
+.certificate-grid{
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+    gap: 1.5rem 3rem;
+}
+
 .avatar {
     position: relative;
     z-index: 1;
