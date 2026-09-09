@@ -19,3 +19,16 @@ Flow dalam pengembangan website di Tugas Individu 1 ini sebagian besar berjalan 
 https://share.gemini.google/OuHS9eMl6f7g
 Gaya prompting yang saya lakukan lebih seperti percakapan atau diskusi sehingga kadang saya merasa AI terlalu percaya diri. Jadi mungkin ada beberapa prompt yang seharusnya tidak diperlukan.
 Untuk pemilihan warna sendiri jika ternyata kurang cocok sebenarnya bukan kesalahan dari AI melainkan dari diri saya sendiri yang pada dasarnya tidak pandai dalam hal desain dan komposisi warna.  
+
+### Tugas 2
+1. Jelaskan alur yang terjadi ketika pengguna membuka halaman portofolio baru, mulai dari permintaan yang diterima proyek hingga data ditampilkan pada browser. Dalam jawabanmu, jelaskan peran urls.py proyek, urls.py aplikasi, view, model, dan template.
+Pertama browser melakukan request ke server django. Lalu request ini diterima oleh urls.py yang berada di portofolio. kalau pathnya admin akan diarahkan ke menu admin, kalau pathnya kosong akan diarahkan ke main. jika ke main, request akan diatur oleh urls.py untuk menampilkan halaman yang mana (show di views). Setelah memanggil show_..., views akan mencocokkan show yang dimaksud dan meminta data ke models terkait lalu dikirim lagi ke views. Ia "membungkus" data itu ke dalam context dan mengirimkannya ke template lalu dikirimkan ke browser
+
+2. Mengapa data untuk bagian portofolio baru sebaiknya disimpan pada model dan tidak ditulis langsung di dalam template? Jelaskan dampaknya terhadap kemudahan pemeliharaan dan pengembangan aplikasi.
+Karena kalau kita langsung melakukan HardCode di dalam template itu akan membuat kode menjadi tidak rapih dan jika kita ingin menambah sesuatu, kita harus menulis secara manual lagi di dalam template. Sedangkan kalau kita pakai model kita tinggal menulis di template secara general (misal {{nama}}) dan itu akan menyesuaikan apa yang ada di dalam model.
+
+3. Apa perbedaan fungsi makemigrations dan migrate pada Django? Berikan contoh perubahan model yang mengharuskanmu menjalankan kedua perintah tersebut.
+Menurut saya makemigrations itu semacam blueprintnya sedangkan migrate adalah yang benar benar mengeksekusi (seperti arsitek dan tukang). Seperti yang tertulis di tutorial 2, kita harus menggunakan keduanya ketika kita ingin mengubah atau mengganti apapun yang ada di models meskipun hanya memperbaiki typo.
+
+AI Disclosure:
+Pada tugas kedua ini saya hanya menggunakan AI (Gemini Pro 3.1) untuk memahami konsep alur request, meminta penjelasan tentang syntax baru (article, span), dan juga proses debug. Untuk alur pengerjaan dari awal sampai akhir kurang lebih sama seperti tutorial 2 sehingga saya tidak butuh bantuan AI untuk melakukannya. Saya lebih banyak me-"reuse" dan memodifikasi kode yang diberikan di tutorial 2 karena fitur yang saya buat sama-sama berfungsi untuk menampilkan sesuatu.
