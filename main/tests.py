@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from main.models import Experience
+from main.models import Experience, Education
 
 
 class MainTest(TestCase):
@@ -56,3 +56,39 @@ class MainTest(TestCase):
         self.assertFalse(self.experience.is_ongoing)
         self.assertContains(response, "Selesai")
         self.assertNotContains(response, "Sedang berlangsung")
+
+class EducationTest(TestCase):
+    def setUp(self):
+        self.url = '/education/' 
+
+    #Kasus 1: URL dapat diakses dan menggunakan template yang tepat
+    def test_url_accessible_and_correct_template(self):
+        response = self.client.get(self.url)
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'education.html') 
+
+    #Kasus 2: Data model muncul di halaman HTML ketika ada data
+    def test_education_data_displayed_when_exists(self):
+        #buat data baru
+        Education.objects.create(
+            institution_name="Universitas Indonesia",
+            description="Mahasiswa S1 Ilmu Komputer.",
+            education_levels="kuliah",
+            started_at="2025",
+            ended_at="Sekarang"
+        )
+        
+        response = self.client.get(self.url)
+        #cek apakah benar benar ada
+        self.assertContains(response, "Universitas Indonesia")
+        self.assertContains(response, "Mahasiswa S1 Ilmu Komputer.")
+
+    # Kriteria 3: Halaman HTML menampilkan pesan kondisi kosong ketika belum ada data
+    def test_education_empty_state_message(self):
+        #pastikan database kosong
+        Education.objects.all().delete()
+        
+        response = self.client.get(self.url)
+        
+        self.assertContains(response, "Belum ada Pendidikan yang ditambahkan.")
