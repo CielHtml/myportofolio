@@ -147,6 +147,8 @@ MAILERS = {
     },
 }
 
+CSRF_TRUSTED_ORIGINS = ['https://fadlan-fathul-aboutme.pws.cs.ui.ac.id']
+
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
