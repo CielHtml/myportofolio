@@ -41,3 +41,5 @@ class Education(models.Model):
     ended_at = models.CharField(max_length=20, default="Sekarang")
     def __str__(self):
         return self.institution_name
+
+

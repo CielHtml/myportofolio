@@ -91,4 +91,4 @@ class EducationTest(TestCase):
         
         response = self.client.get(self.url)
         
-        self.assertContains(response, "Belum ada Pendidikan yang ditambahkan.")
+        self.assertContains(response, "Belum ada Pendidikan yang ditambahkan.") 
