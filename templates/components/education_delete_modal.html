@@ -8,19 +8,19 @@
     </button>
 </p>
 <div id="delete-education-{{ education.id }}"
-     class="project-delete-modal"
+     class="education-delete-modal"
      popover="auto"
      role="dialog"
      aria-modal="true"
      aria-labelledby="delete-education-title-{{ education.id }}">
     <button type="button"
-            class="project-delete-modal_backdrop"
+            class="education-delete-modal__backdrop"
             popovertarget="delete-education-{{ education.id }}"
             popovertargetaction="hide"
             aria-label="Tutup konfirmasi hapus"></button>
-    <div class="project-delete-modal_content">
+    <div class="education-delete-modal__content">
         <button type="button"
-                class="project-delete-modal_close"
+                class="education-delete-modal__close"
                 popovertarget="delete-education-{{ education.id }}"
                 popovertargetaction="hide"
                 aria-label="Tutup konfirmasi hapus">&times;</button>
@@ -29,7 +29,7 @@
             Apakah Anda yakin ingin menghapus
             <strong>{{ education.institution_name }}</strong>?
         </p>
-        <div class="project-delete-modal_actions">
+        <div class="education-delete-modal__actions">
             <button type="button"
                     class="button button-secondary"
                     popovertarget="delete-education-{{ education.id }}"

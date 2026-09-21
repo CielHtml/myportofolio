@@ -13,12 +13,12 @@
             
             <form method="get"
                 action="{% url 'main:show_education' %}"
-                class="project-search">
+                class="education-search">
                 <input type="search"
                 name="institution_name"
                 value="{{ institution_query }}"
                 placeholder="Cari berdasarkan nama institusi"
-                class="project-search__input"
+                class="education-search__input"
                 aria-label="Cari berdasarkan nama institusi">
                 <button type="submit" class="button">Cari</button>
             </form>
@@ -43,7 +43,7 @@
                 {% endfor %}
             </div>
             <div class="education-action-container">
-                <a href="{% url 'main:create_education' %}" class="button project-add-button">
+                <a href="{% url 'main:create_education' %}" class="button education-add-button">
                     <span aria-hidden="true">+</span> Tambah Pendidikan
                 </a>
             </div>
