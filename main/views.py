@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from main.forms import EducationForm
+from main.forms import EducationForm, ExperienceForm
 
 
 def show_main(request):
@@ -21,11 +21,24 @@ def show_main(request):
 
 
 def show_experience(request):
+    json_response = get_experience_json(request)
+    
+    experience = serializers.deserialize(
+        "json",
+        json_response.content.decode("utf-8"),
+    )
+    experience = [item.object for item in experience]
+    
+    title_query = request.GET.get("title", "").strip()
+    
     context = {
         "name": "Fadlan Fathul Islam",
-        "experience_list": Experience.objects.all()
+        "experience_list": experience,
+        "title_query": title_query,
     }
     return render(request, "experience.html", context)
+
+
 
 def show_education(request):
     json_response = get_education_json(request)
@@ -84,3 +97,56 @@ def delete_education(request, education_id):
         return redirect("main:show_education")
 
     return redirect("main:show_education")
+
+def create_experience(request):
+    form = ExperienceForm(request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Pengalaman berhasil ditambahkan!")
+        return redirect("main:show_experience")
+
+    context = {
+            "name": "Fadlan Fathul Islam",
+            "form": form,
+        }
+    return render(request, "experience_form.html", context)
+
+def update_experience(request, experience_id):
+    experience = get_object_or_404(Experience, pk=experience_id)
+
+    form = ExperienceForm(request.POST or None, instance=experience)
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Pengalama berhasil diperbarui!")
+        return redirect("main:show_experience")
+
+    context = {
+        "name" : "Fadlan Fathul Islam",
+        "form" : form,
+    }
+
+    return render(request, "experience_form.html", context)
+
+def get_experience_json(request):
+    title_query = request.GET.get("title", "").strip()
+    experience = Experience.objects.all()
+
+    if title_query:
+        experience = experience.filter(title__icontains=title_query)
+
+    experience_json = serializers.serialize("json", experience)
+    return HttpResponse(experience_json, content_type="application/json")
+
+def delete_experience(request, experience_id):
+    experience = get_object_or_404(Experience, pk=experience_id)
+
+    if request.method == "POST":
+        experience.delete()
+        messages.success(request, "Pengalaman berhasil dihapus!")
+        return redirect("main:show_experience")
+
+    return redirect("main:show_experience")
+
+
