@@ -91,7 +91,7 @@ class ExperienceForm(ModelForm):
             "ended_at" : TextInput(
                 attrs={
                     "placeholder": "Tahun Berakhir",
-                    "maxlength": 4,
+                    "maxlength": 10,
                 }
             ),
 
