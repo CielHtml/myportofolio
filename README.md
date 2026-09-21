@@ -32,3 +32,16 @@ Menurut saya makemigrations itu semacam blueprintnya sedangkan migrate adalah ya
 
 AI Disclosure:
 Pada tugas kedua ini saya hanya menggunakan AI (Gemini Pro 3.1) untuk memahami konsep alur request, meminta penjelasan tentang syntax baru (article, span), dan juga proses debug. Untuk alur pengerjaan dari awal sampai akhir kurang lebih sama seperti tutorial 2 sehingga saya tidak butuh bantuan AI untuk melakukannya. Saya lebih banyak me-"reuse" dan memodifikasi kode yang diberikan di tutorial 2 karena fitur yang saya buat sama-sama berfungsi untuk menampilkan sesuatu.
+
+### Tugas 3
+1. Jelaskan mengapa kita menggunakan ModelForm pada Django alih-alih membuat form HTML secara manual. Selain itu, jelaskan pula mengapa kita diwajibkan menambahkan {% csrf_token %} pada form tersebut!
+Dari sepemahaman saya, kalau kita tulis secara manual di form HTML rentan terjadi kesalahan karena ketidakcocokan data atau input dengan model. Jadi kita gunakan ModelForm agar komunikasi mereka lebih lancar. Analoginya seperti jika kita tidak bisa bahasa prancis, maka lebih baik kita mengajak orang yang bisa agar tidak terjadi kesalahan terutama jika itu sesuatu yang penting
+
+2. Pada Tutorial 03, kita membahas format data JSON dan XML. Mengapa JSON lebih disukai dalam pengembangan aplikasi web modern dibandingkan XML?
+Sebetulnya saya masih belum pernah mencoba XML. Tapi dari yang saya baca di internet JSON memiliki format yang lebih ringkas sehingga memudahkan komunikasi antara front-end dan back-end
+
+3. Jelaskan alur yang terjadi saat kamu menggunakan fungsi view untuk mengembalikan data portofoliomu dalam bentuk JSON. Mengapa kita perlu melakukan proses serialization pada model Django sebelum datanya dikembalikan?
+Alurnya adalah adanya request dari browser ke suatu end point setelah itu dicocokkan ke list of path yang ada di urls.py. ketika sudah cocok, Django akan mengambil data dari database lalu dilakukan serialization dari yang data awalnya berupa objek python diubah menjadi format yang mudah dibaca. Lalu data inilah yang dikirim ke frontend.
+
+AI Disclosure:
+Pada tugas ketiga ini saya menggunakan AI Gemini Pro 3.1 untuk melakukan validasi kode dan penjelasan konsep. Jika ada kode baru yang sebelumnya tidak ada di tutorial saya berkonsultasi dengan AI terlebih dahulu untuk menghindari error. Sebagian besar kode yang saya tulis adalah hasil copy paste dari tutorial tiga hanya mengganti konteks perubahannya (misal tutorial 3 education, di tugas ini adalah experience). 
