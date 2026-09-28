@@ -41,6 +41,7 @@ class Education(models.Model):
     thumbnail = models.URLField(blank=True, null=True)
     started_at = models.CharField(max_length=4)
     ended_at = models.CharField(max_length=20, default="Sekarang")
+    starred_by = models.ManyToManyField(User, related_name="starred_education", blank=True)
     def __str__(self):
         return self.institution_name
 
