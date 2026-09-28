@@ -45,3 +45,7 @@ Alurnya adalah adanya request dari browser ke suatu end point setelah itu dicoco
 
 AI Disclosure:
 Pada tugas ketiga ini saya menggunakan AI Gemini Pro 3.1 untuk melakukan validasi kode dan penjelasan konsep. Jika ada kode baru yang sebelumnya tidak ada di tutorial saya berkonsultasi dengan AI terlebih dahulu untuk menghindari error. Sebagian besar kode yang saya tulis adalah hasil copy paste dari tutorial tiga hanya mengganti konteks perubahannya (misal tutorial 3 education, di tugas ini adalah experience). 
+
+### Tugas 4
+AI Disclosure:
+Pada tugas 4 ini saya masih menggunakan AI Gemini Pro 3.1 untuk menjelaskan tentang requirement soal Integritas API & Keamanan Data. Saya meminta AI untuk memberikan contoh jika data website kita tidak aman jika dilihat dari json. Untuk bagian lainnya, saya cukup mengulang apa yang saya lakukan di tutorial 4 ke section lainnya, sehingga tidak membutuhkan bantuan AI
