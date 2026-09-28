@@ -33,8 +33,9 @@
                             {{ education.description }}
                         </p>
                         <h3>{{ education.started_at }} - {{ education.ended_at }}</h3>
-
+                    {% if user.is_superuser %}
                         {% include "components/education_delete_modal.html" with education=education %}
+                    {% endif %}
                     </article>
                 {% empty %}
                     <p class="empty-state">
@@ -43,9 +44,11 @@
                 {% endfor %}
             </div>
             <div class="education-action-container">
+                {% if user.is_superuser %}
                 <a href="{% url 'main:create_education' %}" class="button education-add-button">
                     <span aria-hidden="true">+</span> Tambah Pendidikan
                 </a>
+                {% endif %}
             </div>
         </div>
     </section>
