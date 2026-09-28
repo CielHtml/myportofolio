@@ -38,11 +38,16 @@ def show_experience(request):
     experience = [item.object for item in experience]
     
     title_query = request.GET.get("title", "").strip()
+
+    is_editor = False
+    if request.user.is_authenticated:
+        is_editor = request.user.groups.filter(name="Editor").exists()
     
     context = {
         "name": "Fadlan Fathul Islam",
         "experience_list": experience,
         "title_query": title_query,
+        "is_editor" : is_editor,
     }
     return render(request, "experience.html", context)
 
@@ -64,11 +69,15 @@ def show_education(request):
             edu for edu in education 
             if institution_query.lower() in edu.institution_name.lower()
         ]
+    is_editor = False
+    if request.user.is_authenticated:
+        is_editor = request.user.groups.filter(name="Editor").exists()
 
     context = {
         "name": "Fadlan Fathul Islam",
         "education_list": education,
         "institution_query": institution_query,
+        "is_editor" : is_editor,
     }
     return render(request, "education.html", context)
 
