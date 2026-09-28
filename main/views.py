@@ -138,19 +138,26 @@ def create_experience(request):
         }
     return render(request, "experience_form.html", context)
 
+@login_required(login_url="/login/")
 def update_experience(request, experience_id):
+    is_editor = False
+    if request.user.is_authenticated:
+        is_editor = request.user.groups.filter(name="Editor").exists()
+    if not request.user.is_superuser or is_editor:
+        raise PermissionDenied
     experience = get_object_or_404(Experience, pk=experience_id)
 
     form = ExperienceForm(request.POST or None, instance=experience)
 
     if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success(request, "Pengalama berhasil diperbarui!")
+        messages.success(request, "Pengalaman berhasil diperbarui!")
         return redirect("main:show_experience")
 
     context = {
         "name" : "Fadlan Fathul Islam",
         "form" : form,
+        "is_editor" : is_editor,
     }
 
     return render(request, "experience_form.html", context)
