@@ -143,7 +143,7 @@ def update_experience(request, experience_id):
     is_editor = False
     if request.user.is_authenticated:
         is_editor = request.user.groups.filter(name="Editor").exists()
-    if not request.user.is_superuser or is_editor:
+    if not (request.user.is_superuser or is_editor):
         raise PermissionDenied
     experience = get_object_or_404(Experience, pk=experience_id)
 
