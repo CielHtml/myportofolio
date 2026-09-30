@@ -10,6 +10,8 @@ from main.forms import EducationForm, ExperienceForm
 import datetime
 from django.contrib.auth.decorators import login_required 
 from django.core.exceptions import PermissionDenied
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
 
 
@@ -29,14 +31,6 @@ def show_main(request):
 
 
 def show_experience(request):
-    json_response = get_experience_json(request)
-    
-    experience = serializers.deserialize(
-        "json",
-        json_response.content.decode("utf-8"),
-    )
-    experience = [item.object for item in experience]
-    
     title_query = request.GET.get("title", "").strip()
 
     is_editor = False
@@ -45,9 +39,9 @@ def show_experience(request):
     
     context = {
         "name": "Fadlan Fathul Islam",
-        "experience_list": experience,
         "title_query": title_query,
-        "is_editor" : is_editor,
+        "is_editor": is_editor,
+        "form" : ExperienceForm(),
     }
     return render(request, "experience.html", context)
 
@@ -164,13 +158,34 @@ def update_experience(request, experience_id):
 
 def get_experience_json(request):
     title_query = request.GET.get("title", "").strip()
-    experience = Experience.objects.all()
+    experiences = Experience.objects.all()
 
     if title_query:
-        experience = experience.filter(title__icontains=title_query)
+        experiences = experiences.filter(title__icontains=title_query)
 
-    experience_json = serializers.serialize("json", experience, use_natural_foreign_keys=True)
-    return HttpResponse(experience_json, content_type="application/json")
+    data = []
+    for experience in experiences:
+        starred_users = experience.starred_by.all()
+        is_starred = request.user in starred_users if request.user.is_authenticated else False
+        starred_by_names = ", ".join([u.username for u in starred_users])
+
+        data.append({
+            "pk": str(experience.id),
+            "fields": {
+                "title": experience.title,
+                "description": experience.description,
+                "category": experience.category,
+                "thubmnail": experience.thumbnail,
+                "started_at": experience.started_at,
+                "ended_at": experience.ended_at,
+                "is_ongoging": experience.is_ongoing,
+                "star_count": starred_users.count(),
+                "is_starred" : is_starred,
+                "starred_by_names" : starred_by_names,
+            }
+        })
+
+    return JsonResponse(data, safe=False)
 
 @login_required(login_url="/login/")
 def delete_experience(request, experience_id):
@@ -244,3 +259,21 @@ def toggle_star_education(request, education_id):
             education.starred_by.add(request.user)
 
     return redirect("main:show_education")
+
+@require_POST
+def create_experience_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan proyek."},
+            status=403,
+        )
+
+    form = ExperienceForm(request.POST)
+    if form.is_valid():
+        experience = form.save()
+        return JsonResponse(
+            {"message": "Proyek berhasil ditambahkan.", "pk": str(experience.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
