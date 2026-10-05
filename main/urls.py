@@ -20,5 +20,7 @@ urlpatterns = [
     path("logout/", logout_user, name="logout"),
     path("experience/<uuid:experience_id>/star/", toggle_star_experience, name="toggle_star_experience"),
     path("education/<uuid:education_id>/star/", toggle_star_education, name="toggle_star_education"),
-    path("projects/add-ajax/", create_experience_ajax, name="create_experience_ajax"),
+    path("experience/add-ajax/", create_experience_ajax, name="create_experience_ajax"),
+    path("education/add-ajax/", create_education_ajax, name="create_education_ajax"),
+
 ]

@@ -84,7 +84,7 @@ def get_education_json(request):
     education = Education.objects.all()
 
     if title_query:
-        education = education.filter(title__icontains=title_query)
+        education = education.filter(institution_name__icontains=title_query)
 
     data = []
     for edu in education:
@@ -98,10 +98,9 @@ def get_education_json(request):
                 "institution_name": edu.institution_name,
                 "description": edu.description,
                 "education_levels": edu.education_levels,
-                "thubmnail": edu.thumbnail,
+                "thumbnail": edu.thumbnail,
                 "started_at": edu.started_at,
                 "ended_at": edu.ended_at,
-                "is_ongoging": edu.is_ongoing,
                 "star_count": starred_users.count(),
                 "is_starred" : is_starred,
                 "starred_by_names" : starred_by_names,
