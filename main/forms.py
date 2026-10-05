@@ -48,7 +48,18 @@ class EducationForm(ModelForm):
                 }
             ),
         }
+    def clean_institution_name(self):
+        name = strip_tags(self.cleaned_data["institution_name"]).strip()
+        if not name:
+            raise ValidationError("Nama sekolah tidak boleh kosong atau hanya berisi tag HTML")
+        return name
 
+    def clean_description(self):
+        return strip_tags(self.cleaned_data["description"]).strip()
+    
+    def clean_education_levels(self):
+        return strip_tags(self.cleaned_data["education_levels"]).strip()
+    
 class ExperienceForm(ModelForm):
     class Meta:
         model = Experience
@@ -109,7 +120,7 @@ class ExperienceForm(ModelForm):
             raise ValidationError("Nama proyek tidak boleh hanya berisi tag HTML.")
         return title
 
-    def clean_tech_stack(self):
+    def clean_category(self):
         return strip_tags(self.cleaned_data["tech_stack"]).strip()
 
     def clean_description(self):
