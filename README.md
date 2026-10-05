@@ -49,3 +49,16 @@ Pada tugas ketiga ini saya menggunakan AI Gemini Pro 3.1 untuk melakukan validas
 ### Tugas 4
 AI Disclosure:
 Pada tugas 4 ini saya masih menggunakan AI Gemini Pro 3.1 untuk menjelaskan tentang requirement soal Integritas API & Keamanan Data. Saya meminta AI untuk memberikan contoh jika data website kita tidak aman jika dilihat dari json. Untuk bagian lainnya, saya cukup mengulang apa yang saya lakukan di tutorial 4 ke section lainnya, sehingga tidak membutuhkan bantuan AI
+
+### Tugas 5
+1. Jelaskan apa itu debouncing dan mengapa teknik ini penting diterapkan pada fitur pencarian yang menggunakan AJAX!
+Debouncing adalah semacam pembatas agar sesuatu tidak selalu tereksekusi secara instan(memberi jeda). tanpa debouncing, ketika kita mengetikkan 5 huruf di kotak pencarian, fungsi akan terus dieksekusi setiap ada huruf baru.
+
+2. Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+Dari yang saya tangkap kegunaan await adalah untuk menunggu agar baris kode setelahnya tidak dieksekusi secara instan terlebih dahulu. Karena kode sebelumnya membutuhkan waktu untuk menyelesaikan tugasnya, kode setelahnya harus menunggu eksekusi selesai, tanpa await mungkin kode berikutnya malah akan mengeksekusi sesuatu yang sebenarnya belum selesai dieksekusi kode sebelumnya
+
+3. Jelaskan apa itu serangan XSS (Cross-Site Scripting) dan mengapa data yang ditampilkan melalui AJAX/JavaScript lebih rentan terhadap serangan ini daripada data yang ditampilkan langsung melalui template Django!
+Serangan XSS dilakukan dengan menuliskan sesuatu di kolom input script yang bisa memengaruhi behavior di website itu sendiri. Kenapa django lebih aman? karena django sudah mencegah hal itu (memiliki pengamanan), sedangkan jika kita mengimplementasikannya sendiri pengaman itu belum atau lupa kita pasang.
+
+AI Disclosure:
+Saya menggunakan AI yang sama dengan tugas sebelumnya. Saya menggunakan untuk tugas yang memerlukan banyak waktu seperti "tolong ubah kode ini dari konteks experience ke education". Saya juga menggunakannya untuk mendebug ketidaksamaan fields akibat copy-paste kode dari tutorial.
