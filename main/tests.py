@@ -33,29 +33,28 @@ class MainTest(TestCase):
 
     def test_experience_page(self):
         response = self.client.get(reverse("main:show_experience"))
-
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "experience.html")
-        self.assertContains(response, self.experience.title)
-        self.assertContains(response, self.experience.description)
-        self.assertContains(response, "Part-Time")
-        self.assertContains(response, "Sedang berlangsung")
+        # Hanya cek container HTML-nya saja, karena isi dirender JS
+        self.assertContains(response, 'id="grid"')
         self.assertContains(response, f'href="{reverse("main:show_main")}"')
 
     def test_empty_experience_page(self):
         Experience.objects.all().delete()
         response = self.client.get(reverse("main:show_experience"))
-
-        self.assertContains(response, "Belum ada pengalaman yang ditambahkan.")
+        # Teks harus SAMA PERSIS dengan teks id="empty" di experience.html
+        self.assertContains(response, "Belum ada pekerjaan yang ditambahkan atau ditemukan.")
 
     def test_completed_experience(self):
         self.experience.ended_at = timezone.now()
         self.experience.save()
-        response = self.client.get(reverse("main:show_experience"))
-
         self.assertFalse(self.experience.is_ongoing)
-        self.assertContains(response, "Selesai")
-        self.assertNotContains(response, "Sedang berlangsung")
+        
+        # Cek data lewat endpoint API/JSON, bukan HTML
+        response = self.client.get(reverse("main:api:experience-list"))
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIsNotNone(data[0]["ended_at"])
 
 class EducationTest(TestCase):
     def setUp(self):
@@ -70,25 +69,21 @@ class EducationTest(TestCase):
 
     #Kasus 2: Data model muncul di halaman HTML ketika ada data
     def test_education_data_displayed_when_exists(self):
-        #buat data baru
         Education.objects.create(
             institution_name="Universitas Indonesia",
             description="Mahasiswa S1 Ilmu Komputer.",
             education_levels="kuliah",
-            started_at="2025",
-            ended_at="Sekarang"
+            started_at="2025-01-01", 
+            ended_at=timezone.now()
         )
-        
         response = self.client.get(self.url)
-        #cek apakah benar benar ada
-        self.assertContains(response, "Universitas Indonesia")
-        self.assertContains(response, "Mahasiswa S1 Ilmu Komputer.")
+        self.assertEqual(response.status_code, 200)
+        # Hanya cek container HTML-nya saja
+        self.assertContains(response, 'id="grid"')
 
     # Kriteria 3: Halaman HTML menampilkan pesan kondisi kosong ketika belum ada data
     def test_education_empty_state_message(self):
-        #pastikan database kosong
         Education.objects.all().delete()
-        
         response = self.client.get(self.url)
-        
-        self.assertContains(response, "Belum ada Pendidikan yang ditambahkan.") 
+        # Teks harus SAMA PERSIS dengan teks id="empty" di education.html
+        self.assertContains(response, "Belum ada riwayat pendidikan yang ditambahkan.")

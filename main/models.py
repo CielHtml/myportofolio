@@ -45,4 +45,3 @@ class Education(models.Model):
     def __str__(self):
         return self.institution_name
 
-
