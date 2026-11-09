@@ -62,3 +62,20 @@ Serangan XSS dilakukan dengan menuliskan sesuatu di kolom input script yang bisa
 
 AI Disclosure:
 Saya menggunakan AI yang sama dengan tugas sebelumnya. Saya menggunakan untuk tugas yang memerlukan banyak waktu seperti "tolong ubah kode ini dari konteks experience ke education". Saya juga menggunakannya untuk mendebug ketidaksamaan fields akibat copy-paste kode dari tutorial.
+
+### Tugas 6
+
+1. Jelaskan apa yang dimaksud dengan REST dan mengapa mengembalikan JSON saja belum cukup untuk menyebut sebuah API sebagai RESTful! Jelaskan pula perbedaan PUT dan PATCH beserta contoh kapan masing-masing sebaiknya digunakan!
+REST adalah gaya arsitektur software yang menetapkan hal hal seperti client-server, statelessness, cacheability, dan uniform interface untuk membuat halaman web. mereturn format JSON saja tidak otomatis membuat API menjadi RESTful apabila tidak mematuhi batasan interface seragam, seperti menggunakan metode HTTP secara semantik dan tidak memiliki status sesi di sisi server. Untuk perbedaan PUT dan PATCH kurang lebih ada di cakupan perubahannya. PUT memperbarui keseluruhan, sedangkan PATCH sebagian.
+
+2. Jelaskan peran serializer pada Django REST Framework! Apa keuntungannya dibandingkan merakit dictionary secara manual dengan JsonResponse seperti pada Tutorial 05?
+Serializer di DRF digunakan sebagai jembatan yang menerjemahkan tipe data kompleks seperti instans model atau QuerySet Django menjadi tipe data bawaan Python yang mudah dirender menjadi JSON, XML, atau format konten lainnya.
+
+3. Jelaskan perbedaan autentikasi dan otorisasi pada Django REST Framework! Mengapa hak akses harus diperiksa dengan permission class di server, bukan hanya dengan menyembunyikan tombol di template?
+Autentikasi adalah pencocokan identitas sedangkan otorisasi adalah apa saja yang bisa dilakukan oleh seseorang yang memiliki identitas tertentu. Dan hak akses tetap perlu dicek di server karena jika kita hanya menyembunyikan tombolnya, ada banyak tools yang bisa pergi langsung ke url yang sama dengan ketika kita klik tombol.
+
+4. Jelaskan mengapa permintaan yang mengubah data tetap memerlukan token CSRF ketika API memakai SessionAuthentication! Mengapa test yang memakai force_authenticate tidak cukup untuk membuktikan bahwa perlindungan CSRF berjalan?
+Karena token CSRF dapat mencegah dari pihak ketiga yang berbahaya, CSRF memastikan bahwa request benar benar berasal dari form yang valid. Pengujian yang hanya menggunakan force_authenticate pada DRF tidak cukup karena fungsi ini melewati sistem middleware Django secara langsung tanpa menyimulasikan siklus permintaan dan respons HTTP peramban yang sebenarnya.
+
+AI Disclosure:
+Saya menggunakan AI Gemini Pro 3.1 untuk membantu alur pengerjaan serta debugging. Pada tugas ini, sebagian besar saya hanya mengubah konteks dari tutorial ke model lain yang belum diimplementasikan. Saya meminta bantuan AI untuk mengubah konteksnya agar saya tidak perlu mengganti satu persatu nama field dan lainnya. Debugging diperlukan ketika ada error saat melakukan runserver, AI memudahkan untuk langsung menemukan masalahnya sehingga bisa langsung saya perbaiki. Saya juga meminta penjelasan terkait teori teori yang ada di pertanyaan reflektif sehingga jawaban saya berasal dari pemahaman saya atas penjelasan tersebut.
